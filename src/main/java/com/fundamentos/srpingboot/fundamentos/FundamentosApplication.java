@@ -14,10 +14,12 @@ public class FundamentosApplication implements CommandLineRunner {  //dependednc
 	private ComponentDependency componentDependency;
 	private MyBean myBean;
 	private MyBeanWithDependency myBeanWithDependency;
-	public FundamentosApplication(@Qualifier("componentTwoImplement")ComponentDependency componentDependency, MyBean myBean, MyBeanWithDependency myBeanWithDependency){
+	private MyBeanWhitProperties myBeanWhitProperties;
+	public FundamentosApplication(@Qualifier("componentTwoImplement")ComponentDependency componentDependency, MyBean myBean, MyBeanWithDependency myBeanWithDependency, MyBeanWhitProperties myBeanWhitProperties){
 		this.componentDependency = componentDependency;
 		this.myBean = myBean;
 		this.myBeanWithDependency = myBeanWithDependency;
+		this.myBeanWhitProperties = myBeanWhitProperties;
 	}
 	public static void main(String[] args) {
 		SpringApplication.run(FundamentosApplication.class, args);
@@ -28,5 +30,6 @@ public class FundamentosApplication implements CommandLineRunner {  //dependednc
 		componentDependency.saludar();
 		myBean.print();
 		myBeanWithDependency.printWithDependency();
+		System.out.println(myBeanWhitProperties.function());;
 	}
 }

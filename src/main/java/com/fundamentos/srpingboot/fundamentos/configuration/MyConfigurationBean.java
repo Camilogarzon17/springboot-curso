@@ -1,6 +1,7 @@
 package com.fundamentos.srpingboot.fundamentos.configuration;
 
 import com.fundamentos.srpingboot.fundamentos.bean.*;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

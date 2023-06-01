@@ -1,8 +1,6 @@
 package com.fundamentos.srpingboot.fundamentos;
 
-import com.fundamentos.srpingboot.fundamentos.bean.MyBean;
-import com.fundamentos.srpingboot.fundamentos.bean.MyBeanImplement;
-import com.fundamentos.srpingboot.fundamentos.bean.MyBeanWithDependency;
+import com.fundamentos.srpingboot.fundamentos.bean.*;
 import com.fundamentos.srpingboot.fundamentos.component.ComponentDependency;
 import com.fundamentos.srpingboot.fundamentos.component.ComponentTwoImplement;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,9 +13,8 @@ public class FundamentosApplication implements CommandLineRunner {  //dependednc
 
 	private ComponentDependency componentDependency;
 	private MyBean myBean;
-
 	private MyBeanWithDependency myBeanWithDependency;
-	public FundamentosApplication(@Qualifier("componentTwoImplement") ComponentDependency componentDependency, MyBean myBean, MyBeanWithDependency myBeanWithDependency){
+	public FundamentosApplication(@Qualifier("componentTwoImplement")ComponentDependency componentDependency, MyBean myBean, MyBeanWithDependency myBeanWithDependency){
 		this.componentDependency = componentDependency;
 		this.myBean = myBean;
 		this.myBeanWithDependency = myBeanWithDependency;

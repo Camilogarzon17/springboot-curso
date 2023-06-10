@@ -8,10 +8,12 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 import javax.sql.DataSource;
 
 @EnableConfigurationProperties(UserPojo.class)
+@PropertySource("classpath:connection.properties")
 @Configuration
 public class GeneralConfiguration {
     @Value("${value.name}")
@@ -23,6 +25,17 @@ public class GeneralConfiguration {
     @Value("${value.random}")
     private String random;
 
+    @Value("${jdbc.url}")
+    private String jdbcUrl;
+
+    @Value("${driver}")
+    private String driver;
+
+    @Value("${username}")
+    private String username;
+
+    @Value("${password}")
+    private String password;
     @Bean
     public MyBeanWhitProperties function(){
         return new MyBeanWhitPropertiesImplement(name, lastname);
@@ -30,11 +43,11 @@ public class GeneralConfiguration {
     }
     @Bean
     public DataSource dataSource(){
-        DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
-        dataSourceBuilder.driverClassName("org.h2.Driver");
-        dataSourceBuilder.url("jdbc:h2:mem:testdb");
-        dataSourceBuilder.username("sa");
-        dataSourceBuilder.password("");
-        return dataSourceBuilder.build();
+        return DataSourceBuilder.create()
+                .driverClassName(this.driver)
+                .url(this.jdbcUrl)
+                .username(this.username)
+                .password(this.password)
+                .build();
     }
 }

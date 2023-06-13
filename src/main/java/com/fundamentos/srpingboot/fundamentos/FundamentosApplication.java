@@ -59,14 +59,17 @@ public class FundamentosApplication implements CommandLineRunner {
 	private void saveWithErrorTransactional(){
 		User test1= new User("Test1Transactional1", "Test1Transactional1@example.com", LocalDate.now());
 		User test2= new User("Test2Transactional1", "Test2Transactional1@example.com", LocalDate.now());
-		User test3= new User("test3Transactional1", "Test3Transactional1@example.com", LocalDate.now());
+		User test3= new User("test3Transactional1", "Test1Transactional1@example.com", LocalDate.now());
 		User test4= new User("Test4Transactional1", "Test4Transactional1@example.com", LocalDate.now());
 		User test5= new User("Test5Transactional1", "Test5Transactional1@example.com", LocalDate.now());
 
 		List<User> users = Arrays.asList(test1, test2, test3, test4, test5);
 
-		userService.saveTransactional(users);
-
+		try {
+			userService.saveTransactional(users);
+		}catch (Exception e) {
+			LOGGER.error("esta es una excepcion dentyro del metodo transaccional" + e);
+		}
 		userService.getAllUsers().stream().forEach(user -> LOGGER.info("este es el usuario dentro del metodo transaccional" + user));
 	}
 
@@ -112,7 +115,7 @@ public class FundamentosApplication implements CommandLineRunner {
 		list.stream().forEach(userRepository::save);
 	}
 
-	private void ejemplosAnteriores(){//dependencia utilizada dentro de otro objeto
+	private void ejemplosAnteriores(){    //dependencia utilizada dentro de otro objeto
 		componentDependency.saludar();
 		myBean.print();
 		myBeanWithDependency.printWithDependency();

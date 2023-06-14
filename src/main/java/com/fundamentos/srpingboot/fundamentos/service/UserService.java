@@ -12,11 +12,19 @@ import java.util.List;
 @Service
 public class UserService {
     private final Log LOG = LogFactory.getLog(UserService.class);
-    private UserRepository userRepository;
+    private static UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
+
         this.userRepository = userRepository;
     }
+
+    public static User save(User newUser) {
+        return userRepository.save(newUser);
+    }
+
+
+
     @Transactional
     public void saveTransactional(List<User> users){
         users.stream()
@@ -27,5 +35,21 @@ public class UserService {
 
     public List<User> getAllUsers(){
        return userRepository.findAll();
+    }
+
+    public void delete(Long id) {
+        userRepository.delete(new User(id));
+    }
+
+    public static User update(User newUser, Long id) {
+        return userRepository.findById(id)
+                .map(
+                        user -> {
+                            user.setEmail(newUser.getEmail());
+                            user.setBirthDate(newUser.getBirthDate());
+                            user.setName(newUser.getName());
+                            return userRepository.save(user);
+                        }
+                ).get();
     }
 }
